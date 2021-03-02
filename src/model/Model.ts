@@ -217,8 +217,28 @@ class Model {
      * @param action the action to perform
      */
     doAction(action: Action) {
-        // console.log(action);
         switch (action.type) {
+            case Actions.ADD_TAB: {
+                // const newNode = new TabSetNode(this, action.data.json);
+                const newNode = TabSetNode._fromJson(action.data.json, this);
+                const toNode = this._idMap[action.data.toNode] as Node & IDraggable;
+                if (toNode instanceof TabSetNode || toNode instanceof BorderNode || toNode instanceof RowNode) {
+                    // toNode.drop(newNode, DockLocation.getByName(action.data.location), action.data.index, action.data.select);
+                    let size = toNode._children.reduce((sum, child) => {
+                        return sum + (child as RowNode | TabSetNode).getWeight();
+                    }, 0);
+
+                    if (size === 0) {
+                        size = 100;
+                    }
+
+                    newNode._setWeight(size / 3);
+                    toNode._addChild(newNode, 0);
+                    this._setActiveTabset(newNode);
+                    this._tidy();
+                }
+                break;
+            }
             case Actions.ADD_NODE: {
                 const newNode = new TabNode(this, action.data.json, true);
                 const toNode = this._idMap[action.data.toNode] as Node & IDraggable;

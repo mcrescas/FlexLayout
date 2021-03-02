@@ -452,7 +452,15 @@ class RowNode extends Node implements IDropTarget {
         if (dragNode instanceof TabSetNode) {
             tabSet = dragNode;
         } else {
-            tabSet = new TabSetNode(this._model, {});
+            // tabSet = new TabSetNode(this._model, {});
+            tabSet = new TabSetNode(this._model, {
+                "weight": 25,
+                "selected": 0,
+                "minWidth": 250,
+                "width": 250,
+                "id": 'sidebarWindow',
+                "enableTabStrip": false,
+            });
             tabSet._addChild(dragNode);
         }
         let size = this._children.reduce((sum, child) => {

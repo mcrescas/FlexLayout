@@ -15,7 +15,7 @@ abstract class Node {
     /** @hidden @internal */
     protected _parent?: Node;
     /** @hidden @internal */
-    protected _children: Node[];
+    _children: Node[];
     /** @hidden @internal */
     protected _fixed: boolean;
     /** @hidden @internal */

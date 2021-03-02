@@ -19,6 +19,18 @@ class Actions {
     static FLOAT_TAB = "FlexLayout_FloatTab";
     static UNFLOAT_TAB = "FlexLayout_UnFloatTab";
 
+    static ADD_TAB = "FlexLayout_AddTab";
+
+    static addTab(json: any, toNodeId: string, location: DockLocation, index: number, select?: boolean): Action {
+        return new Action(Actions.ADD_TAB, {
+            json,
+            toNode: toNodeId,
+            location: location.getName(),
+            index,
+            select,
+        });
+    }
+
     /**
      * Adds a tab node to the given tabset node
      * @param json the json for the new tab node e.g {type:"tab", component:"table"}
